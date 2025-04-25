@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T&J Podcasts</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Feel free to change the font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="basketball.avif">
+    <link rel="preload" as="image" href="basketball2.jpeg">
+    <link rel="preload" as="image" href="basketball3.jpg">
+    <link rel="preload" as="image" href="tony.jpg">
+    <link rel="preload" as="image" href="record.JPG">
+    <link rel="preload" as="image" href="basketballcourt.jpg">
+
+<style>
+/* === CUSTOMIZABLE VARIABLES - Change colors here === */
+:root {
+    /* Light Theme Colors */
+    --bg-light: #ffffff;
+    --text-light: #333333;
+    --accent-light: #4A90E2;
+    --nav-light: #f8f9fa;
+    --card-light: #ffffff;
+    --hover-light: #f0f0f0;
+    
+    /* Dark Theme Colors */
+    --bg-dark: #1a1a1a;
+    --text-dark: #ffffff;
+    --accent-dark: #6BA7E8;
+    --nav-dark: #2d2d2d;
+    --card-dark: #2d2d2d;
+    --hover-dark: #3d3d3d;
+
+    /* Animation Speed - Adjust as needed */
+    --transition-speed: 0.05s;
+
+    --content-opacity: 0.5;
+    --content-blur: 10px;
+    --overlay-light: rgba(255, 255, 255, 0.3);
+    --overlay-dark: rgba(0, 0, 0, 0.5);
+}
+
+/* === BASE STYLES === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all var(--transition-speed) ease;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Optional: If you want a semi-transparent overlay */
+.main-content {
+    max-width: 1200px;
+    margin: 100px auto 40px;
+    padding: 0 20px;
+}
+
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+/* === NAVIGATION STYLES === */
+nav {
+    background-color: var(--nav-light);
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.dark-mode nav {
+    background-color: var(--nav-dark);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logo-tj {
+    color: royalblue; /* Midnight Blue */
+}
+
+.logo-podcasts {
+    color: #000000; /* Black */
+}
+
+.dark-mode .logo-podcasts {
+    color: #ffffff;
+}
+
+/* === NAVIGATION LINKS === */
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Cool hover effect for nav links */
+.nav-links a:hover {
+    background-color: var(--hover-light);
+    transform: translateY(-2px);
+}
+
+.dark-mode .nav-links a:hover {
+    background-color: var(--hover-dark);
+}
+
+/* === DROPDOWN STYLES === */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--card-light);
+    min-width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.dark-mode .dropdown-content {
+    background-color: var(--card-dark);
+}
+
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 20px;
+}
+
+/* === MAIN CONTENT STYLES === */
+.main-content {
+    max-width: 1200px;
+    margin: 100px auto 40px;
+}
+
+/* Section Styling */
+.section {
+    margin-bottom: 40px;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: var(--card-light);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.dark-mode .section {
+    background-color: var(--card-dark);
+}
+
+.section:hover {
+    transform: translateY(-5px);
+}
+
+/* Episode Cards */
+.episode-card {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    background-color: var(--nav-light);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+/* About Cards */
+.about-card {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    background-color: var(--nav-light);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.dark-mode .episode-card {
+    background-color: var(--nav-dark);
+}
+
+.dark-mode .about-card {
+    background-color: var(--nav-dark);
+}
+
+.episode-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.about-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* === THEME TOGGLE BUTTON === */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(180deg);
+    background-color: var(--hover-light);
+}
+
+.dark-mode .theme-toggle:hover {
+    background-color: var(--hover-dark);
+}
+
+/* === BUTTONS === */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent-light);
+    color: white;
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    background-color: #3a7bc8;
+}
+
+/* === AUDIO PLAYER === */
+audio {
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.main-content p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Add hamburger menu for mobile */
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 940px) {
+    .nav-links {
+        display: none; /* Add hamburger menu for mobile */
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+}
+
+footer {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 20px;
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-link {
+            color: #000000;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .contact-link:hover {
+            color: rgb(0, 0, 0);
+        }
+        footer {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 20px;
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-link {
+            color: #000000;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .contact-link:hover {
+            color: rgb(0, 0, 0);
+        }
+
+/* === FOOTER STYLES === */
+
+footer {
+    background-color: var(--bg-light);
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    text-align: center;
+}
+
+.dark-mode footer {
+    background-color: var(--nav-dark);
+    color: white;
+}
+
+.contact-link {
+    color: #000000;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+    color: rgb(0, 0, 0);
+}
+
+.dark-mode .contact-link {
+    color: #ccc;
+}
+
+.dark-mode .contact-link:hover {
+    color: white;
+}
+
+hr {
+    margin: 40px 0;
+    border: 5px solid #eee;
+    border-top: 1px solid #eee;
+}
+
+.dark-mode hr {
+    border-color: #333;
+}
+
+/* .dark-mode footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-link {
+            color: #ccc;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .contact-link:hover {
+            color: white;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-link {
+            color: #ccc;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .contact-link:hover {
+            color: white;
+        } */
+
+/* Enhanced Quote Styling */
+blockquote {
+    margin: 30px 0;
+    padding: 25px;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.dark-mode blockquote {
+    background: linear-gradient(145deg, #2d2d2d, #222222);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+}
+
+blockquote:hover {
+    transform: translateY(-5px);
+}
+
+/* Quote Image Containers */
+.quote-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.quote-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    object-fit: cover;
+    transform: rotate(-3deg);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.quote-image:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+/* Logo Link Styling */
+.logo-link {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo-link:hover {
+    opacity: 0.9;
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Enhanced Section Transitions */
+.section {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Background Image Styling */
+body {
+    /* Keep your existing body styles and add: */
+    background-image: url('./basketball3.jpg'); /* Replace with your image path */
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Add overlay for better readability */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--overlay-light);
+    z-index: -1;
+}
+
+body.dark-mode::before {
+    background: var(--overlay-dark);
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent-light);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+}
+
+.dark-mode .back-to-top {
+    background: var(--accent-dark);
+}
+
+/* Make content semi-transparent */
+nav {
+    background-color: rgba(248, 249, 250, var(--content-opacity));
+    backdrop-filter: blur(var(--content-blur));
+}
+
+.dark-mode nav {
+    background-color: rgba(45, 45, 45, var(--content-opacity));
+}
+
+.section {
+    background-color: rgba(255, 255, 255, var(--content-opacity));
+    backdrop-filter: blur(var(--content-blur));
+}
+
+.dark-mode .section {
+    background-color: rgba(45, 45, 45, var(--content-opacity));
+}
+
+.episode-card, .about-card {
+    background-color: rgba(248, 249, 250, var(--content-opacity));
+    backdrop-filter: blur(var(--content-blur));
+}
+
+.dark-mode .episode-card,
+.dark-mode .about-card {
+    background-color: rgba(45, 45, 45, var(--content-opacity));
+}
+
+.dropdown-content {
+    background-color: rgba(255, 255, 255, var(--content-opacity));
+    backdrop-filter: blur(var(--content-blur));
+}
+
+.dark-mode .dropdown-content {
+    background-color: rgba(45, 45, 45, var(--content-opacity));
+}
+
+footer {
+    background-color: rgba(255, 255, 255, var(--content-opacity));
+    backdrop-filter: blur(var(--content-blur));
+}
+
+.dark-mode footer {
+    background-color: rgba(45, 45, 45, var(--content-opacity));
+}
+
+/* Optional: Add a nice gradient overlay to make text more readable */
+.section, .episode-card, .about-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.section::before, .episode-card::before, .about-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.05)
+    );
+    pointer-events: none;
+}
+
+.dark-mode .section::before,
+.dark-mode .episode-card::before,
+.dark-mode .about-card::before {
+    background: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.05)
+    );
+}
+
+</style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#home" class="logo-link">
+                    <span class="logo-tj">T&J</span>
+                    <span class="logo-podcasts">Podcasts</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <div class="dropdown">
+                    <a href="#episodes">Episodes ▾</a>
+                    <div class="dropdown-content">
+                        <a href="#latest">Latest Episode</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#docs">Documentation ▾</a>
+                    <div class="dropdown-content">
+                        <a href="#wprocess">Writing Process</a>
+                        <a href="#rprocess">Recording Process</a>
+                        <a href="documentation.html">Full Documentation →</a>  <!-- Add this line -->
+                    </div>
+                </div>
+                <a href="#about">About</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section">
+            <h1>Welcome to T&J Podcasts</h1>
+            <p>Get ready to be inspired and entertained by the T&J Podcasts. Tune in for every episode, and prepare for the unexpected.</p>
+            <button class="btn" id="listenNowBtn">Listen Now</button>
+        </section>
+
+        <!-- Episodes Section -->
+        <section id="episodes" class="section">
+            <h2 id="latest">Latest Episodes</h2>
+            <div class="episode-card">
+                <h3>The Last Shot</h3>
+                <p>Welcome to "The Last Shot", where every dribble creates tension and every shot carries the weight of dreams. The Cougars face their biggest challenge yet-one that tests not just their skills, but their unity. With their star player injured and the clock ticking down, can they come together to seize victory against the odds? - Tony...</p>
+                <audio controls>
+                    <source src="#" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <div class="episode-card">
+                <h3>Swish</h3>
+                <p>Welcome to the story of a 14-year-old basketball player destined for the nba. "Swish" travels through the realms of discipline, dedication, and success! It is a very thrilling podcast that crosses basketball with responsibility, in this podcast you will surely find yourself on the edge of your seat waiting to see if the pumas pull it off.  - Josh...</p>
+                <audio controls>
+                    <source src="./Swish.mp3" type="audio/mpeg">
+                </audio>
+
+            </div>
+        </section>
+
+       <!-- Documentation Section
+<section id="docs" class="section" style="padding: 20px; background-color: #f9f9f9;">
+    <h2 style="text-align: center; margin-bottom: 30px;">Behind the Scenes (Documentation)</h2>
+    
+    <div id="wprocess" class="episode-card" style="margin-bottom: 40px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #fff;">
+        <h3 style="text-align: left; margin-bottom: 10px;">Our Writing Process</h3>
+        <p style="font-style: italic;">Take a peek into how we drafted our Podcasts...</p>
+        <blockquote style="margin-left: 20px; padding: 10px; border-left: 4px solid #007bff; background-color: #e9f7ff;">
+            “When writing the story and script for the podcast, I faced many difficulties, such as problems with character development, especially because we have to engage the audience at the start of the podcast. This makes it harder to fit things in just the right spots for a smooth flow in the story. By conveying emotions without visual cues, it makes it more complex and harder to achieve. I got this all figured out in the following weeks after the finished script, but that process took way too many revisions, which is time consuming.” - Tony
+        </blockquote>
+        <blockquote style="margin-left: 20px; padding: 10px; border-left: 4px solid #007bff; background-color: #e9f7ff;">
+            “The motivation behind actually completing the script and the podcast itself is because of my passion for basketball, as it helped me a lot with rendering realistic situations that would be set on a real court. This passion helps me easily create connections with listeners who share the same love for this sport, which is why I am committed to creating a well polished podcast.” - Tony
+        </blockquote>
+    </div>
+
+    <div id="rprocess" class="episode-card" style="padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #fff;">
+        <h3 style="text-align: left; margin-bottom: 10px;">Our Recording Process</h3>
+        <p style="font-style: italic;">Take a peek into our recording setup...</p>
+        <blockquote style="margin-left: 20px; padding: 10px; border-left: 4px solid #007bff; background-color: #e9f7ff;">
+            “Throughout the recording process, there were definitely some struggles. In the environment where I recorded the audio in, it frustrated me due to the inconsistency of the audio quality. During different takes, there would sometimes be random interruptions such as dropping a pencil or moving around too much, greatly affecting the overall clearness of the audio. I conquered this difficulty by moving to a room where there are cushions such as a mattress (credits: Josh’s guest bedroom), which helped filter out background noises and created a perfect ‘recording studio.’” - Tony
+        </blockquote>
+        <blockquote style="margin-left: 20px; padding: 10px; border-left: 4px solid #007bff; background-color: #e9f7ff;">
+            “Another challenge that I encountered during recording was my contrary voice. This usually is because of long hours of nonstop recording as I get tired of speaking. I made sure that I took frequent breaks from each recording session to get the best overall audio quality and consistency.” - Tony
+        </blockquote>
+    </div>
+</section> -->
+
+<section id="docs" class="section">
+    <h2 style="text-align: center; margin-bottom: 30px;">Behind the Scenes (Documentation)</h2>
+    
+    <div id="wprocess" class="episode-card">
+        <h3>Our Writing Process</h3>
+        
+        <div class="quote-container">
+            <blockquote>
+                "When writing the story and script for the podcast, I faced many difficulties, such as problems with character development, especially because we have to engage the audience at the start of the podcast. This makes it harder to fit things in just the right spots for a smooth flow in the story." - Tony
+            </blockquote>
+        </div>
+
+        <div class="quote-container" style="flex-direction: row-reverse;">
+            <blockquote>
+                "The motivation behind actually completing the script and the podcast itself is because of my passion for basketball, as it helped me a lot with rendering realistic situations that would be set on a real court." - Tony "The game itself is based on a true experience, as I was inspired by Marshall Spring's game against Midsun in the 2025 Junior Boy Basketball Division Finals."
+            </blockquote>
+            <img src="./tony.jpg" alt="Basketball Court" class="quote-image" style="transform: rotate(3);">
+        </div>
+    </div>
+
+    <div id="rprocess" class="episode-card">
+        <h3>Our Recording Process</h3>
+        
+        <div class="quote-container">
+            <img src="./record.JPG" alt="Recording Studio" class="quote-image">
+            <blockquote>
+                "Throughout the recording process, there were definitely some struggles. In the environment where I recorded the audio in, it frustrated me due to the inconsistency of the audio quality." - Tony
+            </blockquote>
+        </div>
+
+        <div class="quote-container" style="flex-direction: row-reverse;">
+            <img src="https://picsum.photos/200/200?random=4" alt="Voice Recording" class="quote-image" style="transform: rotate(3);">
+            <blockquote>
+                "Another challenge that I encountered during recording was my contrary voice. This usually is because of long hours of nonstop recording as I get tired of speaking." - Tony
+            </blockquote>
+        </div>
+
+        <div class="quote-container">
+            <blockquote>
+                "I was truly motivated to complete this podcast because I found this assignment very intriguing, and I wanted to finish it in its entirety to see the best result. Despite the month of work that went to waste, I completed it..." - Josh
+            </blockquote>
+        </div>
+    </div>
+</section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2>About Us</h2>
+            <div class="about-card">
+                <p>T&J Podcasts, founded by Tony and Josh, is a made up podcasting company for their IPP extension assignment.</p>
+            </div>
+        </section>
+    </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Tony Wang Designs</p>
+        </div>
+    </footer>
+
+<script>
+
+// Back to Top Button
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Theme Toggle Functionality
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+const icon = themeToggle.querySelector('i');
+
+// Load the theme from localStorage on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    } else {
+        body.classList.remove('dark-mode');
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+    }
+});
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    // Update icon
+    if (body.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark'); // Save the dark theme
+    } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'light'); // Save the light theme
+    }
+});
+
+// Smooth Scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Existing smooth scroll functionality
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// New event listener for the button
+const listenNowBtn = document.getElementById('listenNowBtn');
+listenNowBtn.addEventListener('click', function () {
+    document.querySelector('#episodes').scrollIntoView({
+        behavior: 'smooth'
+    });
+});
+
+
+// Smooth scroll to top when logo is clicked
+document.querySelector('.logo-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Add intersection observer for smooth section animations
+const sections = document.querySelectorAll('.section');
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+sections.forEach(section => {
+    observer.observe(section);
+});
+
+
+// // Add this to your existing JavaScript
+// function changeBackground() {
+//     const backgrounds = [
+//         'url("./basketball.avif")',
+//         'url("./basketball2.jpeg")',
+//         'url("./basketball3.jpg")',
+//         // Add more background URLs as needed
+//     ];
+    
+//     let currentIndex = 0;
+    
+//     setInterval(() => {
+//         currentIndex = (currentIndex + 1) % backgrounds.length;
+//         document.body.style.backgroundImage = backgrounds[currentIndex];
+//     }, 10000); // Changes every 10 seconds
+// }
+
+// // Initialize background change
+// changeBackground(); // Uncomment to enable automatic background changes
+</script>
+</body>
+</html>
